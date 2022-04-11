@@ -6,7 +6,12 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'my-aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]){
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: "my-aws-credentials",
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
                 bat 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 711439543033.dkr.ecr.us-east-1.amazonaws.com'
                 bat 'docker build -t docker-web-app .'
                 bat 'docker tag docker-web-app:latest 711439543033.dkr.ecr.us-east-1.amazonaws.com/docker-web-app:latest'
