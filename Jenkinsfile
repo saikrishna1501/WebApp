@@ -26,7 +26,7 @@ pipeline {
                     [sshPublisherDesc(configName: 'webapp', transfers: [sshTransfer(cleanRemote: false, excludes: '',
                      execCommand: '''cd /home/ec2-user
                                     touch test.txt
-                                    $(aws ecr get-login --no-include-email --region us-east-1)
+                                    $(aws ecr get-login --no-include-email --region us-east-1) > ecr-logs.txt
                                     docker run -p 80:80 -d 711439543033.dkr.ecr.us-east-1.amazonaws.com/docker-web-app''',
                     execTimeout: 0, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
