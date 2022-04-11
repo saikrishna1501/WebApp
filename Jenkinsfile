@@ -24,9 +24,7 @@ pipeline {
                 sshPublisher(
                     publishers: 
                     [sshPublisherDesc(configName: 'webapp', transfers: [sshTransfer(cleanRemote: false, excludes: '',
-                     execCommand: '''cd /home/ec2-user
-                                    touch test.txt
-                                    sudo sh execute-commands.sh''',
+                     execCommand: '''sudo sh execute-commands.sh''',
                     execTimeout: 0, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
