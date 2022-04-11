@@ -24,9 +24,11 @@ pipeline {
                 sshPublisher(
                     publishers: 
                     [sshPublisherDesc(configName: 'webapp', transfers: [sshTransfer(cleanRemote: false, excludes: '',
-                     execCommand: '''aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 711439543033.dkr.ecr.us-east-1.amazonaws.com
-                                     docker run -p 80:80 -d 711439543033.dkr.ecr.us-east-1.amazonaws.com/docker-web-app''',
-                    execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                     execCommand: '''cd /home/ec2-user
+                                    touch test.txt
+                                    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 711439543033.dkr.ecr.us-east-1.amazonaws.com
+                                    docker run -p 80:80 -d 711439543033.dkr.ecr.us-east-1.amazonaws.com/docker-web-app''',
+                    execTimeout: 0, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
     }
